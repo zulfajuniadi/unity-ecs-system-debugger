@@ -1,0 +1,28 @@
+using Unity.Entities;
+using UnityEngine;
+
+namespace {{NAMESPACE}}
+{
+    public static class {{CLASSNAME}}
+    {
+        static void DomainUnloadShutdown ()
+        {
+            World.DisposeAllWorlds ();
+            ScriptBehaviourUpdateOrder.UpdatePlayerLoop ();
+        }
+
+        [RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Boot ()
+        {
+            var world = new World ("{{WORLDNAME}}");
+            ScriptBehaviourUpdateOrder.UpdatePlayerLoop (world);
+            PlayerLoopManager.RegisterDomainUnload (DomainUnloadShutdown, 10000);
+        }
+
+        [RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void Run ()
+        {
+
+        }
+    }
+}
