@@ -111,6 +111,7 @@ namespace EntitySystemDebugger.Editor
         {
             bool disabled = false;
             var label = "";
+            var labelColor = EditorGUIUtility.isProSkin ? window.skin.customStyles[4] : window.skin.customStyles[5];
             if (window.selectedWorld != null && behavioursIds.ContainsValue (args.item.displayName))
             {
                 var type = typeIds[args.item.id];
@@ -200,18 +201,18 @@ namespace EntitySystemDebugger.Editor
                     }
                 }
             }
-            if (label != "")
-            {
-                var rect = args.rowRect;
-                rect.x = args.rowRect.width - 85;
-                rect.width = 100;
-                GUI.Label (rect, label, window.skin.customStyles[4]);
-            }
             if (disabled)
             {
                 GUI.enabled = false;
             }
             base.RowGUI (args);
+            if (label != "")
+            {
+                var rect = args.rowRect;
+                rect.x = args.rowRect.width - 85;
+                rect.width = 100;
+                GUI.Label (rect, label, labelColor);
+            }
             if (disabled)
             {
                 GUI.enabled = true;
