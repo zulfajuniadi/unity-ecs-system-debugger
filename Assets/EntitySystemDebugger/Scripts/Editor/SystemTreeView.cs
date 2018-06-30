@@ -144,13 +144,27 @@ namespace EntitySystemDebugger.Editor
                     disabled = true;
                 }
             }
+            if (string.IsNullOrEmpty (searchString))
+            {
+                args.rowRect.x += 4f;
+            }
+            else
+            {
+                args.rowRect.x += 8f;
+            }
+            args.rowRect.width -= 18f;
             if (behavioursIds.ContainsValue (args.item.displayName))
             {
                 var type = typeIds[args.item.id];
-                args.rowRect.x += 4f;
-                args.rowRect.width -= 18f;
                 var toggleRect = args.rowRect;
-                toggleRect.x += 12;
+                if (string.IsNullOrEmpty (searchString))
+                {
+                    toggleRect.x += 12;
+                }
+                else
+                {
+                    toggleRect.x -= 2;
+                }
                 toggleRect.size = new Vector2 (18f, args.rowRect.height);
                 var enabled = !disabledSystems.Contains (type);
                 var isEnabled = GUI.Toggle (toggleRect, enabled, "Enabled");
