@@ -311,5 +311,17 @@ namespace EntitySystemDebugger.Editor
                 }
             }
         }
+
+        public void SelectSystem (Type selectedType)
+        {
+            foreach (var entry in typeIds)
+            {
+                if (entry.Value == selectedType)
+                {
+                    SelectionChanged (new int[] { entry.Key });
+                    return;
+                }
+            }
+        }
     }
 }

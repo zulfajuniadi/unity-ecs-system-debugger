@@ -17,7 +17,7 @@ namespace EntitySystemDebugger.Editor
         [SerializeField] private string selectedTypeName = "";
 
         private Type selectedType;
-        private SystemTreeView systemTreeView;
+        public SystemTreeView systemTreeView;
         private SystemPropertiesView SystemPropertiesView;
         public GUISkin skin;
         public int selectedWorldIndex;

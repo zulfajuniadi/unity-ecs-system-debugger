@@ -22,6 +22,9 @@ namespace EntitySystemDebugger.Editor
         private List<MethodInfo> cachedMethods = new List<MethodInfo> ();
         private List<ComponentGroup> activeComponentGroups = new List<ComponentGroup> ();
         private List<ComponentGroup> inactiveComponentGroups = new List<ComponentGroup> ();
+        private List<Type> updateBefore = new List<Type> ();
+        private List<Type> updateAfter = new List<Type> ();
+        private List<Type> updateGroup = new List<Type> ();
         private ComponentSystemBase activeInstance = null;
         private ComponentSystemBase instance = null;
         private EntitySystemDebuggerWindow window;
@@ -44,6 +47,7 @@ namespace EntitySystemDebugger.Editor
             {
                 GetFields (type);
                 GetMethods (type);
+                GetUpdateOrder (type);
                 lastActiveWorld = World.Active;
                 currentType = type;
             }
@@ -57,6 +61,8 @@ namespace EntitySystemDebugger.Editor
             DrawChart (chartRect, type);
 
             EditorGUILayout.EndVertical ();
+
+            DrawUpdateOrder ();
 
             var dataRect = EditorGUILayout.BeginVertical ();
 
@@ -169,6 +175,32 @@ namespace EntitySystemDebugger.Editor
                     {
                         inactiveComponentGroups.Add (component);
                     }
+                }
+            }
+        }
+
+        private void GetUpdateOrder (Type type)
+        {
+            var updateInGroupType = typeof (UpdateInGroupAttribute);
+            var updateAfterType = typeof (UpdateAfterAttribute);
+            var updateBeforeType = typeof (UpdateBeforeAttribute);
+            updateBefore.Clear ();
+            updateAfter.Clear ();
+            updateGroup.Clear ();
+            foreach (var attribute in type.GetCustomAttributes (true))
+            {
+                var attributeType = attribute.GetType ();
+                if (attributeType == updateBeforeType)
+                {
+                    updateBefore.Add ((attribute as UpdateBeforeAttribute).SystemType);
+                }
+                else if (attributeType == updateAfterType)
+                {
+                    updateAfter.Add ((attribute as UpdateAfterAttribute).SystemType);
+                }
+                else if (attributeType == updateInGroupType)
+                {
+                    updateGroup.Add ((attribute as UpdateInGroupAttribute).GroupType);
                 }
             }
         }
@@ -291,6 +323,41 @@ namespace EntitySystemDebugger.Editor
             averageDtRect.y += 46;
             averageDtRect.x += 4;
             GUI.Label (averageDtRect, new GUIContent (StringUtils.FormatDt ("AVG:", average), "Average Delta Time"), EditorStyles.miniBoldLabel);
+        }
+
+        private void DrawUpdateOrder ()
+        {
+            GUILayout.Space (4);
+            if (updateAfter.Count == 0 && updateGroup.Count == 0 && updateBefore.Count == 0) return;
+            var rect = EditorGUILayout.BeginVertical (GUILayout.Height (18));
+            rect.y -= 22;
+            rect.height = 18;
+            float offX = rect.width - 40f;
+            foreach (var before in updateBefore)
+            {
+                if (GUI.Button (new Rect (offX, rect.y, 35f, 18), new GUIContent (StringUtils.GetAbbreviation (before.Name), "[UpdateBefore] " + before.FullName), window.skin.customStyles[2]))
+                {
+                    window.systemTreeView.SelectSystem (before);
+                }
+                offX -= 35f;
+            }
+            foreach (var group in updateGroup)
+            {
+                if (GUI.Button (new Rect (offX, rect.y, 35f, 18), new GUIContent (StringUtils.GetAbbreviation (group.Name), "[UpdateGroup] " + group.FullName), window.skin.customStyles[1]))
+                {
+                    window.systemTreeView.SelectSystem (group);
+                }
+                offX -= 35f;
+            }
+            foreach (var after in updateAfter)
+            {
+                if (GUI.Button (new Rect (offX, rect.y, 35f, 18), new GUIContent (StringUtils.GetAbbreviation (after.Name), "[UpdateAfter] " + after.FullName), window.skin.customStyles[0]))
+                {
+                    window.systemTreeView.SelectSystem (after);
+                }
+                offX -= 35f;
+            }
+            EditorGUILayout.EndHorizontal ();
         }
 
         private void DrawButtons (Rect rect, Type type)
