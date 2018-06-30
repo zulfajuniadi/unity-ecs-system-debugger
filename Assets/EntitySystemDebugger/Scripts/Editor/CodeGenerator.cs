@@ -188,10 +188,16 @@ namespace EntitySystemDebugger.Editor
 
             EditorGUILayout.LabelField (type + " Name:");
 
+            if (string.IsNullOrEmpty (createName))
+            {
+                createName = PlayerPrefs.GetString ("codegeneratornamespace", "Game") + ".";
+            }
+
             createName = EditorGUILayout.TextField (createName);
 
             EditorGUILayout.HelpBox ("Name with namespace but without extension. For example if you want to create a " + type + " file of Ball in the namespace Items, input: Items.Ball", MessageType.Info);
 
+            if (string.IsNullOrEmpty (createName) || createName.EndsWith (".")) return;
             if (GUILayout.Button ("Create " + type))
             {
                 Create ();
@@ -297,6 +303,8 @@ namespace EntitySystemDebugger.Editor
                     return;
                 }
             }
+
+            PlayerPrefs.SetString ("codegeneratornamespace", foundNamespace);
 
             var model = new Dictionary<string, object> ();
             model.Add ("NAMESPACE", foundNamespace);

@@ -15,7 +15,10 @@ namespace {{NAMESPACE}}
         static void Boot ()
         {
             var world = new World ("{{WORLDNAME}}");
-            ScriptBehaviourUpdateOrder.UpdatePlayerLoop (world);
+            // world.CreateManager<TransformSystem> ();
+            var worlds = new List<World> ();
+            worlds.AddRange (World.AllWorlds);
+            ScriptBehaviourUpdateOrder.UpdatePlayerLoop (worlds.ToArray ());
             PlayerLoopManager.RegisterDomainUnload (DomainUnloadShutdown, 10000);
         }
 
