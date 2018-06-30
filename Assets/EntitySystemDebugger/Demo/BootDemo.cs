@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Demo.Systems;
 using Unity.Entities;
 using Unity.Rendering;
@@ -23,7 +24,9 @@ namespace Demo
             world.CreateManager<OrbitSystem> ();
             world.CreateManager<TransformSystem> ();
             world.CreateManager<MeshInstanceRendererSystem> ();
-            ScriptBehaviourUpdateOrder.UpdatePlayerLoop (world);
+            var worlds = new List<World> ();
+            worlds.AddRange (World.AllWorlds);
+            ScriptBehaviourUpdateOrder.UpdatePlayerLoop (worlds.ToArray ());
             PlayerLoopManager.RegisterDomainUnload (DomainUnloadShutdown, 10000);
         }
     }
