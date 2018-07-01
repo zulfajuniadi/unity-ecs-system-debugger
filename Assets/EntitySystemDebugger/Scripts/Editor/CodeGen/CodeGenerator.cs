@@ -379,6 +379,7 @@ namespace EntitySystemDebugger.Editor.CodeGen
                 if (GUILayout.Button ("Create Bootstrap File"))
                 {
                     var sourceTemplate = LoadTemplate ("BootstrapTemplate");
+                    if (sourceTemplate == null) return;
                     var model = new Dictionary<string, object> ();
                     model.Add ("NAMESPACE", currentNamespace);
                     model.Add ("CLASSNAME", currentNamespace + "Bootstrap");
@@ -414,6 +415,7 @@ namespace EntitySystemDebugger.Editor.CodeGen
         {
 
             var sourceTemplate = LoadTemplate (generateType.ToString () + "Template");
+            if (sourceTemplate == null) return;
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies ())
             {
