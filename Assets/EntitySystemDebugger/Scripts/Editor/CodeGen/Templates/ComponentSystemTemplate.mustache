@@ -9,19 +9,21 @@ namespace {{NAMESPACE}}
     // [UpdateBefore (typeof (SomeType))]
     // [UpdateAfter (typeof (SomeType))]
     // [ExecuteInEditMode]
-    public class {{CLASSNAME}} : JobComponentSystem
+    public class {{CLASSNAME}} : ComponentSystem
     {
-        struct ProcessData
+        struct InjectData
         {
             public int Length;
+            // public ComponentData<SomeComponentData> someComponentDatas;
+            // [ReadOnly] public SharedComponentData<SomeSharedCompoentDatas> someSharedComponentDatas;
+            // public SubtractiveComponent<SomeComponentData> sub;
         }
 
-        [Inject] ProcessData data;
+        [Inject] InjectData data;
         [Inject] {{CLASSNAME}}Barrier barrier;
-        protected override JobHandle OnUpdate (JobHandle inputDeps)
+        protected override void OnUpdate ()
         {
             var buffer = barrier.CreateCommandBuffer ();
-            return inputDeps;
         }
 
         protected override void OnCreateManager (int capacity)

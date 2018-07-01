@@ -1,0 +1,33 @@
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
+using Unity.Mathematics;
+using UnityEngine;
+
+namespace {{NAMESPACE}}
+{
+    [BurstCompile]
+    public struct {{CLASSNAME}} : IJobParallelFor
+    {
+        // [ReadOnly]
+        // [DeallocateOnJobCompletion]
+        // NativeArray<int> Inputs;
+        // [WriteOnly]
+        // public NativeArray<int> Outputs;
+
+        public {{CLASSNAME}} (
+            // NativeArray<int> inputs,
+            // NativeArray<int> outputs
+        )
+        {
+            // Inputs = inputs;
+            // Outputs = outputs;
+        }
+
+        public void Execute (int index)
+        {
+            // Outputs[index] = Inputs[index];
+        }
+    }
+}

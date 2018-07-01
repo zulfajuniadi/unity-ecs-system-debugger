@@ -1,0 +1,46 @@
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
+using Unity.Mathematics;
+using UnityEngine;
+
+namespace {{NAMESPACE}}
+{
+    [BurstCompile]
+    public struct {{CLASSNAME}} : IJobNativeMultiHashMapMergedSharedKeyIndices
+    {
+        [ReadOnly] NativeMultiHashMap<int, int> Input;
+        [WriteOnly] NativeMultiHashMap<int, int>.Concurrent Output;
+
+        public {{CLASSNAME}} (
+            NativeMultiHashMap<int, int> input,
+            NativeMultiHashMap<int, int>.Concurrent output
+        )
+        {
+            Input = input;
+            Output = output;
+        }
+
+        public void ExecuteFirst (int index)
+        {
+            var iterator = new NativeMultiHashMapIterator<int> ();
+            if (Input.TryGetFirstValue (index, out int item, out iterator))
+            {
+
+            }
+        }
+
+        public void ExecuteNext (int firstIndex, int index)
+        {
+            var iterator = new NativeMultiHashMapIterator<int> ();
+            if (Input.TryGetFirstValue (index, out int item, out iterator))
+            {
+                while (Input.TryGetNextValue (out int value, ref iterator))
+                {
+
+                }
+            }
+        }
+    }
+}

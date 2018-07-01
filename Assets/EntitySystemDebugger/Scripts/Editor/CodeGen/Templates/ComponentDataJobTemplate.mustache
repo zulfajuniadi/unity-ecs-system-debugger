@@ -1,0 +1,27 @@
+using Unity.Burst;
+using Unity.Collections;
+using Unity.Entities;
+using Unity.Jobs;
+using Unity.Mathematics;
+using Unity.Transforms;
+
+namespace {{NAMESPACE}}
+{
+    // [RequireComponentTag(typeof(SOMECOMPONENT))]
+    // [RequireSubtractiveComponent (typeof (SOMESUBTRACTIVECOMPONENT))]
+    [BurstCompile]
+    public struct {{CLASSNAME}} : IJobProcessComponentData<Position, Rotation, MoveSpeed>
+    {
+        float dt;
+
+        public {{CLASSNAME}} (float dt)
+        {
+            this.dt = dt;
+        }
+
+        public void Execute (ref Position position, [ReadOnly] ref Rotation rotation, [ReadOnly] ref MoveSpeed moveSpeed)
+        {
+            position.Value = position.Value + math.forward (rotation.Value) * moveSpeed.speed * dt;
+        }
+    }
+}

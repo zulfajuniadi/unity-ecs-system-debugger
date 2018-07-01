@@ -1,0 +1,39 @@
+using Unity.Entities;
+using UnityEngine;
+
+namespace {{NAMESPACE}}
+{
+    public static class {{CLASSNAME}}
+    {
+        // ArchetypeReferenceStart - Do not remove
+        // ArchetypeReferenceStop - Do not remove
+
+        [RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void Boot ()
+        {
+            var world = new World ("{{WORLDNAME}}");
+            // world.CreateManager<TransformSystem> ();
+
+            // Uncomment the four lines below if you want to run all the worlds:
+            // var allWorlds = new World[World.AllWorlds.Count];
+            // World.AllWorlds.CopyTo (allWorlds, 0);
+            // ScriptBehaviourUpdateOrder.UpdatePlayerLoop (allWorlds);
+            // PlayerLoopManager.RegisterDomainUnload (DomainUnloadShutdown, 10000);
+
+            // ArchetypeDeclarationStart - Do not remove
+            // ArchetypeDeclarationStop - Do not remove
+        }
+
+        [RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void Run ()
+        {
+
+        }
+
+        static void DomainUnloadShutdown ()
+        {
+            World.DisposeAllWorlds ();
+            ScriptBehaviourUpdateOrder.UpdatePlayerLoop ();
+        }
+    }
+}

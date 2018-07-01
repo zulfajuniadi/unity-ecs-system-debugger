@@ -1,0 +1,24 @@
+using Unity.Entities;
+
+namespace {{NAMESPACE}}
+{
+    [System.Serializable]
+    public struct {{CLASSNAME}} : ISharedComponentData
+    {
+
+    }
+
+    [System.Serializable]
+    [RequireComponent (typeof (GameObjectEntity))]
+    public class {{CLASSNAME}}Component : SharedComponentDataWrapper<{{CLASSNAME}}>
+    {
+        // EntityManager manager;
+        // Entity entity;
+        // private void Start ()
+        // {
+        //     manager = GetComponent<GameObjectEntity> ().EntityManager;
+        //     entity = GetComponent<GameObjectEntity> ().Entity;
+        // }
+        // private void Update () { }
+    }
+}
