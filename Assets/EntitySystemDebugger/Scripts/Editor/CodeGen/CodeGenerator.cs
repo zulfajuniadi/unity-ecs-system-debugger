@@ -167,7 +167,7 @@ namespace EntitySystemDebugger.Editor.CodeGen
                 case GenerateType.NativeMultiHashMapJob:
                 case GenerateType.ComponentDataJob:
                     tempFileDirectory = jobsDirectory;
-                    secondaryNamespace = "Job.";
+                    secondaryNamespace = "Jobs.";
                     break;
             }
 
