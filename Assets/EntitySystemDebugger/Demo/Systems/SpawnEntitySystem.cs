@@ -62,15 +62,29 @@ namespace Demo.Systems
             public SubtractiveComponent<MeshInstanceRenderer> sub;
         }
 
+        struct ExistingEntities
+        {
+            public int Length;
+            public EntityArray entities;
+            public ComponentDataArray<TransformMatrix> transforms;
+        }
+
         [Inject] SpawnBarrier barrier;
         [Inject] PendingMeshRenderer pendingMeshRenderer;
+        [Inject] ExistingEntities existingEntities;
 
         protected override JobHandle OnUpdate (JobHandle inputDeps)
         {
             if (sharedMeshRenderer.mesh != AgentMesh || sharedMeshRenderer.material != AgentMaterial)
             {
+                var buffer = barrier.CreateCommandBuffer ();
                 sharedMeshRenderer.mesh = AgentMesh;
                 sharedMeshRenderer.material = AgentMaterial;
+                for (int i = 0; i < existingEntities.Length; i++)
+                {
+                    buffer.SetSharedComponent<MeshInstanceRenderer> (existingEntities.entities[i], sharedMeshRenderer);
+                }
+
             }
             if (Spawning > 0)
             {
