@@ -10,6 +10,7 @@ namespace {{NAMESPACE}}
     [BurstCompile]
     public struct {{CLASSNAME}} : IJobParallelFor
     {
+        float dt;
         // [ReadOnly]
         // [DeallocateOnJobCompletion]
         // NativeArray<int> Inputs;
@@ -17,10 +18,12 @@ namespace {{NAMESPACE}}
         // public NativeArray<int> Outputs;
 
         public {{CLASSNAME}} (
+            float dt
             // NativeArray<int> inputs,
             // NativeArray<int> outputs
         )
         {
+            this.dt = dt;
             // Inputs = inputs;
             // Outputs = outputs;
         }

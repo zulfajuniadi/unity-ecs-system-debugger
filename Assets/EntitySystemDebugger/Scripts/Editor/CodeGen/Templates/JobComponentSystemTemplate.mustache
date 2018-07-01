@@ -20,10 +20,10 @@ namespace {{NAMESPACE}}
         }
 
         [Inject] InjectData data;
-        [Inject] {{CLASSNAME}}Barrier barrier;
+        // [Inject] {{CLASSNAME}}Barrier barrier;
         protected override JobHandle OnUpdate (JobHandle inputDeps)
         {
-            var buffer = barrier.CreateCommandBuffer ();
+            // var buffer = barrier.CreateCommandBuffer ();
             return inputDeps;
         }
 
@@ -47,5 +47,5 @@ namespace {{NAMESPACE}}
         }
     }
 
-    public class {{CLASSNAME}}Barrier : BarrierSystem { }
+    // public class {{CLASSNAME}}Barrier : BarrierSystem { }
 }

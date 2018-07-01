@@ -5,18 +5,18 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace {{NAMESOACE}}
+namespace {{NAMESPACE}}
 {
     [BurstCompile]
     public struct {{CLASSNAME}} : IJob
     {
-        // float dt;
+        float dt;
 
         public {{CLASSNAME}} (
-            // float dt
+            float dt
         )
         {
-            // this.dt = dt;
+            this.dt = dt;
         }
 
         public void Execute ()
