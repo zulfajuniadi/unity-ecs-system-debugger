@@ -429,6 +429,7 @@ namespace EntitySystemDebugger.Editor.CodeGen
             }
 
             var model = new Dictionary<string, object> ();
+            model.Add ("COMPONENTNAME", typeName.Replace ("System", "").Replace ("Component", ""));
             model.Add ("NAMESPACE", typeNamespace);
             model.Add ("CLASSNAME", typeName);
 

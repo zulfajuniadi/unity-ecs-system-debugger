@@ -4,14 +4,14 @@ using UnityEngine;
 namespace {{NAMESPACE}}
 {
     [System.Serializable]
-    public struct {{CLASSNAME}} : IComponentData
+    public struct {{COMPONENTNAME}} : IComponentData
     {
 
     }
 
     [System.Serializable]
     [RequireComponent (typeof (GameObjectEntity))]
-    public class {{CLASSNAME}}Component : ComponentDataWrapper<{{CLASSNAME}}>
+    public class {{CLASSNAME}} : ComponentDataWrapper<{{COMPONENTNAME}}>
     {
         // EntityManager manager;
         // Entity entity;
