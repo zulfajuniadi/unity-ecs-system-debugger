@@ -80,14 +80,14 @@ namespace EntitySystemDebugger.Editor.CodeGen
         private static string GetBaseDirectory (bool skipCheck = false)
         {
             var dir = "";
-            var exisitng = PlayerPrefs.GetString ("codegeneratorbasedir", "");
-            if (!skipCheck || !Directory.Exists (exisitng))
+            var existing = PlayerPrefs.GetString ("codegeneratorbasedir", "");
+            if (!skipCheck || Directory.Exists (existing))
             {
-                dir = exisitng;
+                dir = existing;
             }
             if (dir == "")
             {
-                dir = EditorUtility.SaveFolderPanel ("Choose Output Directory", exisitng, "");
+                dir = EditorUtility.SaveFolderPanel ("Choose Output Directory", existing, "");
                 if (dir != "")
                 {
                     PlayerPrefs.SetString ("codegeneratorbasedir", dir);
