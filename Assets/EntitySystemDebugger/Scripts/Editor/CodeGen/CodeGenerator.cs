@@ -81,11 +81,11 @@ namespace EntitySystemDebugger.Editor.CodeGen
         {
             var dir = "";
             var existing = PlayerPrefs.GetString ("codegeneratorbasedir", "");
-            if (!skipCheck || Directory.Exists (existing))
+            if (Directory.Exists (existing))
             {
                 dir = existing;
             }
-            if (dir == "")
+            if (dir == "" || skipCheck == true)
             {
                 dir = EditorUtility.SaveFolderPanel ("Choose Output Directory", existing, "");
                 if (dir != "")
