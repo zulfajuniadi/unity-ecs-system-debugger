@@ -118,7 +118,6 @@ namespace EntitySystemDebugger.Editor.CodeGen
             var dataDirectory = Application.dataPath;
             var dirLength = dataDirectory.Length;
             var baseDirectory = GetBaseDirectory ();
-            var searchDirectory = baseDirectory.Substring (dirLength + 1);
             currentNamespace = GetBaseNamespaceFromDirectory (baseDirectory);
 
             GUILayout.Space (4);
