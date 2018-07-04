@@ -411,7 +411,7 @@ namespace EntitySystemDebugger.Editor
                 {
                     var entityDebugger = EditorWindow.GetWindow<EntityDebugger> (false, "Entity Debugger", true);
                     entityDebugger.Show ();
-                    entityDebugger.SetSystemSelection (window.selectedWorld.GetExistingManager (type.GetType ()), true, true);
+                    entityDebugger.SetSystemSelection (window.selectedWorld.GetExistingManager (type.GetType ()), window.selectedWorld, true, true);
                 }
             }
         }
