@@ -1,3 +1,4 @@
+using UnityEngine;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
@@ -6,7 +7,6 @@ using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEditor;
-using UnityEngine;
 using Random = Demo.Utils.Random;
 
 namespace Demo.Systems
@@ -56,7 +56,7 @@ namespace Demo.Systems
 
         struct PendingMeshRenderer
         {
-            public int Length;
+            public readonly int Length;
             public EntityArray entities;
             public ComponentDataArray<TransformMatrix> transforms;
             public SubtractiveComponent<MeshInstanceRenderer> sub;
@@ -64,7 +64,7 @@ namespace Demo.Systems
 
         struct ExistingEntities
         {
-            public int Length;
+            public readonly int Length;
             public EntityArray entities;
             public ComponentDataArray<TransformMatrix> transforms;
         }
